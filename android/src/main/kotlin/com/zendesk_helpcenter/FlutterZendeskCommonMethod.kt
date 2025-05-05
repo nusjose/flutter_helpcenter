@@ -54,14 +54,14 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         }
     }
 
-    fun helpCenterShow(call: MethodCall) {
+    fun showHelpCenterActivity(call: MethodCall) {
         if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
             Log.e(tag, "Zendesk or Support SDK is not initialized.")
             return
         }
 
         plugin.activity?.let {
-            Log.d(tag, "Launching helpCenterShow")
+            Log.d(tag, "Launching showHelpCenterActivity")
             HelpCenterActivity.builder().show(it)
         }
     }

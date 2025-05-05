@@ -99,6 +99,14 @@ class ZendeskHelpcenter {
     }
   }
 
+  static Future<void> showHelpCenterActivity() async {
+    try {
+      await _channel.invokeMethod('showHelpCenterActivity');
+    } catch (e) {
+      debugPrint('ZendeskMessaging - showHelpCenterActivity - Error: $e}');
+    }
+  }
+
   static Future<dynamic> _onMethodCall(final MethodCall call) async {
     if (!channelMethodToMessageType.containsKey(call.method)) {
       return;
