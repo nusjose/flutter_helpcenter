@@ -49,6 +49,10 @@ class FlutterZendeskPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         zendeskFlutterCombination.showRequestList(call)
       }
 
+      "helpCenterShow" -> {
+        zendeskFlutterCombination.helpCenterShow(call)
+      }
+
     }
 
     if (sendData != null) {

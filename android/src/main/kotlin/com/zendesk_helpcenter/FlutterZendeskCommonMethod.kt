@@ -7,6 +7,7 @@ import zendesk.core.JwtIdentity
 import zendesk.core.Zendesk
 import zendesk.support.CustomField
 import zendesk.support.Support
+import zendesk.support.guide.HelpCenterActivity
 import zendesk.support.request.RequestActivity
 import zendesk.support.requestlist.RequestListActivity
 import java.util.Arrays
@@ -53,5 +54,16 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         }
     }
 
+    fun helpCenterShow(call: MethodCall) {
+        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
+            Log.e(tag, "Zendesk or Support SDK is not initialized.")
+            return
+        }
+
+        plugin.activity?.let {
+            Log.d(tag, "Launching helpCenterShow")
+            HelpCenterActivity.builder().show(it)
+        }
+    }
 
 }
