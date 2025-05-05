@@ -26,7 +26,7 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         nameIdentifier: String,
     ) {
 
-        Zendesk.INSTANCE.init( plugin.activity!!, urlString, appId, clientId)
+        Zendesk.INSTANCE.init( plugin.activity!!.application, urlString, appId, clientId)
         Zendesk.INSTANCE.setIdentity(JwtIdentity(nameIdentifier))
         Support.INSTANCE.init(Zendesk.INSTANCE)
 
@@ -41,12 +41,13 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
     fun showRequestList(call: MethodCall) {
 //        val x =  RequestActivity.builder().withCustomFields(Arrays.asList(osPlatForm)).config()
 //        RequestListActivity.builder().show(plugin.activity!!)
-        if (!Zendesk.INSTANCE.isInitialized) {
-            Log.e("Zendesk showRequestList", "Zendesk is not initialized.")
+        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
+            Log.e(tag, "Zendesk or Support SDK is not initialized.")
             return
         }
 
         plugin.activity?.let {
+            Log.d(tag, "Launching RequestListActivity")
             val intent = RequestListActivity.builder().intent(it)
             it.startActivity(intent)
         }
