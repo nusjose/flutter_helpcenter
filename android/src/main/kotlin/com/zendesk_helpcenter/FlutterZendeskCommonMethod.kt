@@ -32,7 +32,7 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
 
 
         plugin.isInitialize = true
-
+        Log.d("ZendeskInit", "Zendesk initialized with $urlString / $appId")
 
         channel.invokeMethod(initializeSuccess, null)
     }
@@ -40,7 +40,16 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
 
     fun showRequestList(call: MethodCall) {
 //        val x =  RequestActivity.builder().withCustomFields(Arrays.asList(osPlatForm)).config()
-        RequestListActivity.builder().show(plugin.activity!!)
+//        RequestListActivity.builder().show(plugin.activity!!)
+        if (!Zendesk.INSTANCE.isInitialized) {
+            Log.e("Zendesk showRequestList", "Zendesk is not initialized.")
+            return
+        }
+
+        plugin.activity?.let {
+            val intent = RequestListActivity.builder().intent(it)
+            it.startActivity(intent)
+        }
     }
 
 
