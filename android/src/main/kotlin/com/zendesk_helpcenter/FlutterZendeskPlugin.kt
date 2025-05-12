@@ -12,7 +12,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 //import zendesk.core.AnonymousIdentity
 //import zendesk.core.Identity
 //import zendesk.core.Zendesk
-import zendesk.support.Support
+//import zendesk.support.Support
 
 /** FlutterZendeskPlugin */
 class FlutterZendeskPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
