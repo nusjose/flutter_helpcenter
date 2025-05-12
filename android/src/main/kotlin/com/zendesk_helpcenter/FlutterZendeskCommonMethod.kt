@@ -11,6 +11,8 @@ import zendesk.support.guide.HelpCenterActivity
 import zendesk.support.request.RequestActivity
 import zendesk.support.requestlist.RequestListActivity
 import java.util.Arrays
+import zendesk.android.Zendesk
+import zendesk.messaging.android.DefaultMessagingFactory
 
 class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, private val channel: MethodChannel) {
 
@@ -38,6 +40,24 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         channel.invokeMethod(initializeSuccess, null)
     }
 
+    fun initializeWithChannel(
+        channelKey: String
+    ) {
+        Zendesk.initialize(
+            context = this,
+            channelKey = channelKey,
+            successCallback = { zendesk ->
+                plugin.isInitialize = true
+                Log.i("IntegrationApplication", "Initialization successful")
+            },
+            failureCallback = { error ->
+                // Tracking the cause of exceptions in your crash reporting dashboard will help to triage any unexpected failures in production
+                Log.e("IntegrationApplication", "Initialization failed", error)
+            },
+            messagingFactory = DefaultMessagingFactory()
+        )
+    }
+    }
 
     fun showRequestList(call: MethodCall) {
 //        val x =  RequestActivity.builder().withCustomFields(Arrays.asList(osPlatForm)).config()

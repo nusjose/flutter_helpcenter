@@ -45,6 +45,11 @@ class FlutterZendeskPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
           nameIdentifier =nameIdentifier, urlString = urlString  )
       }
 
+      "initializeWithChannel" -> {
+        val channelKey = call.argument<String>("channelKey")!!
+        zendeskFlutterCombination.initializeWithChannel(channelKey)
+      }
+
       "showRequestList" -> {
         zendeskFlutterCombination.showRequestList(call)
       }

@@ -75,6 +75,18 @@ class ZendeskHelpcenter {
     }
   }
 
+  static Future<void> initializeWithChannel({
+    required String channelKey,
+}) async {
+    try {
+      await _channel.invokeMethod('initializeWithChannel',{
+        "channelKey": channelKey,
+      });
+    } catch (e) {
+      debugPrint('ZendeskMessaging - initializeWithChannel - Error: $e}');
+    }
+  }
+
   static Future<void> showHelpCenter() async {
     try {
       await _channel.invokeMethod('showHelpCenter');
