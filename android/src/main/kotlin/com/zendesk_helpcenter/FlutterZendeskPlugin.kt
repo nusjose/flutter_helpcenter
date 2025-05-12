@@ -1,7 +1,5 @@
 package com.zendesk_helpcenter
 
-
-
 import android.app.Activity
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
