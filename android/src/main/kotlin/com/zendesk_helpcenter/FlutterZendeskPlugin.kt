@@ -9,9 +9,9 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import zendesk.core.AnonymousIdentity
-import zendesk.core.Identity
-import zendesk.core.Zendesk
+//import zendesk.core.AnonymousIdentity
+//import zendesk.core.Identity
+//import zendesk.core.Zendesk
 import zendesk.support.Support
 
 /** FlutterZendeskPlugin */

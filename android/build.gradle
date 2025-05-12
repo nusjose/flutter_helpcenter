@@ -20,7 +20,6 @@ rootProject.allprojects {
         mavenCentral()
 //        maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
         maven { url 'https://zendesk.jfrog.io/artifactory/repo' }
-
     }
 }
 
