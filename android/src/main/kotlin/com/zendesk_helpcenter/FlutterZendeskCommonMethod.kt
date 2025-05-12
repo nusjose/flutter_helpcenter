@@ -44,7 +44,7 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         channelKey: String
     ) {
         Zendesk.initialize(
-            context = this,
+            context = plugin.activity!!,
             channelKey = channelKey,
             successCallback = { zendesk ->
                 plugin.isInitialize = true
