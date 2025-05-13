@@ -67,6 +67,10 @@ class FlutterZendeskPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         zendeskFlutterCombination.showChats(call)
       }
 
+      "showSupportChat" -> {
+        zendeskFlutterCombination.showSupportChat(call)
+      }
+
     }
 
     if (sendData != null) {

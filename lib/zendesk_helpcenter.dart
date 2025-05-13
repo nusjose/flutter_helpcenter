@@ -125,6 +125,14 @@ class ZendeskHelpcenter {
     }
   }
 
+  static Future<void> showSupportChat() async {
+    try {
+      await _channel.invokeMethod('showSupportChat');
+    } catch (e) {
+      debugPrint('ZendeskMessaging - showSupportChat - Error: $e}');
+    }
+  }
+
   static Future<void> showHelpCenterActivity() async {
     try {
       await _channel.invokeMethod('showHelpCenterActivity');

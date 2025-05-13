@@ -9,6 +9,7 @@ import java.util.Locale
 import zendesk.core.Zendesk
 import zendesk.core.AnonymousIdentity
 import zendesk.messaging.android.DefaultMessagingFactory
+import zendesk.support.request.RequestActivity
 
 class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, private val channel: MethodChannel) {
 
@@ -76,15 +77,15 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
     fun showRequestList(call: MethodCall) {
 //        val x =  RequestActivity.builder().withCustomFields(Arrays.asList(osPlatForm)).config()
 //        RequestListActivity.builder().show(plugin.activity!!)
-//        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
-//            Log.e(tag, "Zendesk or Support SDK is not initialized.")
-//            return
-//        }
-//
-//        plugin.activity?.let {
-//            Log.d(tag, "Launching RequestListActivity")
-//            RequestListActivity.builder().show(it)
-//        }
+        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
+            Log.e(tag, "Zendesk or Support SDK is not initialized.")
+            return
+        }
+
+        plugin.activity?.let {
+            Log.d(tag, "Launching RequestListActivity")
+            RequestListActivity.builder().show(it)
+        }
     }
 
     fun showHelpCenterActivity(call: MethodCall) {
@@ -113,6 +114,18 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
 //            Log.d(tag, "Launching showArticleActivity")
 //            ViewArticleActivity.builder().show(it)
 //        }
+    }
+
+    fun showSupportChat(call: MethodCall) {
+        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
+            Log.e(tag, "Zendesk or Support SDK is not initialized.")
+            return
+        }
+        plugin.activity?.let {
+            Log.d(tag, "Launching showSupportChat")
+            RequestActivity.builder()
+                .show(context);
+        }
     }
 
     fun showChats(call: MethodCall) {
