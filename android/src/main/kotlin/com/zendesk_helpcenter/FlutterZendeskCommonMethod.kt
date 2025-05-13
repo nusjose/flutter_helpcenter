@@ -10,6 +10,7 @@ import zendesk.core.Zendesk
 import zendesk.core.AnonymousIdentity
 import zendesk.messaging.android.DefaultMessagingFactory
 import zendesk.support.request.RequestActivity
+import zendesk.support.request.RequestListActivity
 
 class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, private val channel: MethodChannel) {
 
@@ -123,8 +124,7 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         }
         plugin.activity?.let {
             Log.d(tag, "Launching showSupportChat")
-            RequestActivity.builder()
-                .show(context);
+            RequestActivity.builder().show(it);
         }
     }
 
