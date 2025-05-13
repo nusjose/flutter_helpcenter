@@ -36,7 +36,7 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
 
             case "showHelpCenterActivity":
                               let config = RequestUiConfiguration()
-                              let helpCenter = RequestUi.buildRequestList(with: [config])
+                              let helpCenter = RequestUi.buildHelpCenterOverviewUi(with: [config])
                                          let rootViewController:UIViewController! = UIApplication.shared.keyWindow?.rootViewController
                                                if (rootViewController is UINavigationController) {
                                                    (rootViewController as! UINavigationController).pushViewController(helpCenter, animated:true)
