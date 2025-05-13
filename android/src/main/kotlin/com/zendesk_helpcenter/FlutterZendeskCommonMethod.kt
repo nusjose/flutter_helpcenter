@@ -29,9 +29,7 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         nameIdentifier: String,
     ) {
 
-        let context = plugin.activity!!.application
-
-        Zendesk.INSTANCE.init(context, urlString, appId, clientId)
+        Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
         Zendesk.INSTANCE.setIdentity(JwtIdentity(nameIdentifier))
         Support.INSTANCE.init(Zendesk.INSTANCE)
 
