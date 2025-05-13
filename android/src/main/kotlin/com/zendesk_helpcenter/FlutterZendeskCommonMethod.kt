@@ -61,17 +61,17 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
     }
 
     fun showRequestList(call: MethodCall) {
-        val x =  RequestActivity.builder().withCustomFields(Arrays.asList(osPlatForm)).config()
-        RequestListActivity.builder().show(plugin.activity!!)
-        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
-            Log.e(tag, "Zendesk or Support SDK is not initialized.")
-            return
-        }
-
-        plugin.activity?.let {
-            Log.d(tag, "Launching RequestListActivity")
-            RequestListActivity.builder().show(it)
-        }
+//        val x =  RequestActivity.builder().withCustomFields(Arrays.asList(osPlatForm)).config()
+//        RequestListActivity.builder().show(plugin.activity!!)
+//        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
+//            Log.e(tag, "Zendesk or Support SDK is not initialized.")
+//            return
+//        }
+//
+//        plugin.activity?.let {
+//            Log.d(tag, "Launching RequestListActivity")
+//            RequestListActivity.builder().show(it)
+//        }
     }
 
     fun showHelpCenterActivity(call: MethodCall) {
