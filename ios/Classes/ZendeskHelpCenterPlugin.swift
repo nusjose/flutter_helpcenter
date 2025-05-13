@@ -35,6 +35,20 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
                                      rootViewController.present(navigationController, animated:true, completion:nil)
                                    }
                 break;
+
+            case "showHelpCenterActivity":
+
+
+                              let config = RequestUiConfiguration()
+                              let helpCenter = RequestUi.buildRequestList(with: [config])
+                                         let rootViewController:UIViewController! = UIApplication.shared.keyWindow?.rootViewController
+                                               if (rootViewController is UINavigationController) {
+                                                   (rootViewController as! UINavigationController).pushViewController(helpCenter, animated:true)
+                                               } else {
+                                                   let navigationController:UINavigationController! = UINavigationController(rootViewController:helpCenter)
+                                                 rootViewController.present(navigationController, animated:true, completion:nil)
+                                               }
+                            break;
        default:
            print("Invalid method call!")
            break;
@@ -48,14 +62,17 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
                   let appId = dictionary["appId"] as? String,
                   let clientId = dictionary["clientId"] as? String,
                   let nameIdentifier = dictionary["nameIdentifier"] as? String
-          
+                  let name = dictionary["name"] as? String
+                  let email = dictionary["email"] as? String
+
           
         else { return }
 
             Zendesk.initialize(appId: appId, clientId: clientId, zendeskUrl: urlString)
-            let identity = Identity.createJwt(token: nameIdentifier)
-        
-            Zendesk.instance?.setIdentity(identity)
+//             let identity = Identity.createJwt(token: nameIdentifier)
+            let ident = Identity.createAnonymous(name: name, email: email)
+
+            Zendesk.instance?.setIdentity(ident)
             Support.initialize(withZendesk: Zendesk.instance)
             
     
