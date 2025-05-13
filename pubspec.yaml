@@ -1,6 +1,6 @@
 name: zendesk_helpcenter
 description: "zendesk_helpcenter"
-version: 1.0.3
+version: 1.0.4
 homepage: "https://github.com/nusjose/flutter_helpcenter"
 
 environment:

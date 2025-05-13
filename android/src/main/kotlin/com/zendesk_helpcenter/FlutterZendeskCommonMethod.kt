@@ -4,15 +4,16 @@ import android.util.Log
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import zendesk.core.AnonymousIdentity
-import zendesk.core.JwtIdentity
 import zendesk.core.Zendesk
-import zendesk.support.CustomField
 import zendesk.support.Support
 import zendesk.support.guide.HelpCenterActivity
 import zendesk.support.guide.ViewArticleActivity
-import zendesk.support.request.RequestActivity
-import zendesk.support.requestlist.RequestListActivity
 import java.util.Locale
+
+// Zendesk Messaging SDK
+import zendesk.messaging.MessagingActivity
+import zendesk.messaging.Messaging
+import zendesk.messaging.android.DefaultMessagingFactory
 
 //import java.util.Arrays
 //import zendesk.android.Zendesk
@@ -33,6 +34,7 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         nameIdentifier: String,
         name: String,
         email: String,
+        channelKey: String
     ) {
 
         Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
@@ -44,10 +46,23 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         Support.INSTANCE.init(Zendesk.INSTANCE)
 
         plugin.isInitialize = true
+
+        Messaging.initialize(
+            context = plugin.activity!!.application,
+            channelKey = channelKey,
+            messagingFactory = DefaultMessagingFactory(),
+            successCallback = {
+                Log.d("ZendeskInit", "Zendesk messaging initialized with $channelKey")
+            },
+            failureCallback = {
+                Log.e("ZendeskInit", "Zendesk messaging initialization failed with $channelKey")
+            }
+        )
         Log.d("ZendeskInit", "Zendesk initialized with $urlString / $appId")
 
         channel.invokeMethod(initializeSuccess, null)
     }
+
 
     fun initializeWithChannel(
         channelKey: String
@@ -107,6 +122,12 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
             Log.d(tag, "Launching showArticleActivity")
             ViewArticleActivity.builder().show(it)
         }
+    }
+
+    fun showChats(call: MethodCall) {
+        plugin.activity?.let {
+            Log.d(tag, "Launching showChats")
+            MessagingActivity.builder().show(context)        }
     }
 
 }

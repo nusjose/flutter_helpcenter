@@ -52,7 +52,8 @@ class ZendeskHelpcenter {
       required String clientId,
       required String nameIdentifier,
       required String name,
-      required String email }) async {
+      required String email,
+      required String channelKey }) async {
     if (appId.isEmpty || clientId.isEmpty) {
       debugPrint('ZendeskMessaging - initialize - ids can not be empty');
       return;
@@ -72,7 +73,8 @@ class ZendeskHelpcenter {
         'clientId': clientId,
         'nameIdentifier': nameIdentifier,
         'name': name,
-        'email': email
+        'email': email,
+        'channelKey': channelKey,
       });
     } catch (e) {
       debugPrint('ZendeskMessaging - initialize - Error: $e}');
@@ -112,6 +114,14 @@ class ZendeskHelpcenter {
       await _channel.invokeMethod('showRequest');
     } catch (e) {
       debugPrint('ZendeskMessaging - showRequest - Error: $e}');
+    }
+  }
+
+  static Future<void> showChats() async {
+    try {
+      await _channel.invokeMethod('showChats');
+    } catch (e) {
+      debugPrint('ZendeskMessaging - showChats - Error: $e}');
     }
   }
 

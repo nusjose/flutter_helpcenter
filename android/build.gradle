@@ -54,8 +54,8 @@ dependencies {
 //    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
     api group: 'com.zendesk', name: 'messaging', version: '5.6.0'
     api group: 'com.zendesk', name: 'support', version: '5.4.0'
-    api group: 'com.zendesk', name: 'answerbot', version: '3.3.2'
-    api group: 'com.zendesk', name: 'chat', version: '3.6.0'
+//    api group: 'com.zendesk', name: 'answerbot', version: '3.3.2'
+//    api group: 'com.zendesk', name: 'chat', version: '3.6.0'
 
 //    implementation group: 'com.zendesk', name: 'support', version: '5.1.2'
     implementation 'androidx.appcompat:appcompat:1.6.1'
