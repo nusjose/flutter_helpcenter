@@ -8,8 +8,11 @@ import zendesk.core.Zendesk
 import zendesk.support.CustomField
 import zendesk.support.Support
 import zendesk.support.guide.HelpCenterActivity
+import zendesk.support.guide.ViewArticleActivity
 import zendesk.support.request.RequestActivity
 import zendesk.support.requestlist.RequestListActivity
+import java.util.Locale
+
 //import java.util.Arrays
 //import zendesk.android.Zendesk
 //import zendesk.messaging.android.DefaultMessagingFactory
@@ -58,18 +61,17 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
     }
 
     fun showRequestList(call: MethodCall) {
-//        val x =  RequestActivity.builder().withCustomFields(Arrays.asList(osPlatForm)).config()
-//        RequestListActivity.builder().show(plugin.activity!!)
-//        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
-//            Log.e(tag, "Zendesk or Support SDK is not initialized.")
-//            return
-//        }
-//
-//        plugin.activity?.let {
-//            Log.d(tag, "Launching RequestListActivity")
-//            val intent = RequestListActivity.builder().intent(it)
-//            it.startActivity(intent)
-//        }
+        val x =  RequestActivity.builder().withCustomFields(Arrays.asList(osPlatForm)).config()
+        RequestListActivity.builder().show(plugin.activity!!)
+        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
+            Log.e(tag, "Zendesk or Support SDK is not initialized.")
+            return
+        }
+
+        plugin.activity?.let {
+            Log.d(tag, "Launching RequestListActivity")
+            RequestListActivity.builder().show(it)
+        }
     }
 
     fun showHelpCenterActivity(call: MethodCall) {
@@ -80,7 +82,20 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
 
         plugin.activity?.let {
             Log.d(tag, "Launching showHelpCenterActivity")
+            Support.INSTANCE.helpCenterLocaleOverride = Locale("en", "IE")
             HelpCenterActivity.builder().show(it)
+        }
+    }
+
+    fun showArticleActivity(call: MethodCall) {
+        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
+            Log.e(tag, "Zendesk or Support SDK is not initialized.")
+            return
+        }
+
+        plugin.activity?.let {
+            Log.d(tag, "Launching showArticleActivity")
+            ViewArticleActivity.builder().show(it)
         }
     }
 
