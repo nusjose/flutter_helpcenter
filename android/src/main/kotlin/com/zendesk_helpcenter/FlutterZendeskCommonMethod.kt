@@ -3,20 +3,11 @@ package com.zendesk_helpcenter
 import android.util.Log
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import zendesk.android.Zendesk
-import zendesk.support.Support
 import zendesk.support.Support
 import zendesk.support.guide.HelpCenterActivity
-import zendesk.support.guide.ViewArticleActivity
 import java.util.Locale
-
-// Zendesk Messaging SDK
+import zendesk.android.Zendesk
 import zendesk.messaging.android.DefaultMessagingFactory
-import zendesk.messaging.android.MessagingActivity
-
-//import java.util.Arrays
-//import zendesk.android.Zendesk
-//import zendesk.messaging.android.DefaultMessagingFactory
 
 class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, private val channel: MethodChannel) {
 
@@ -156,8 +147,7 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
     fun showChats(call: MethodCall) {
         plugin.activity?.let {
             Log.d(tag, "Launching showChats")
-            val intent = MessagingActivity.builder().intent(it)
-            it.startActivity(intent)
+            Zendesk.instance.messaging.showMessaging(it)
         }
     }
 
