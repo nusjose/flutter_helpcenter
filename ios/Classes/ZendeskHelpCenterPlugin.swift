@@ -23,8 +23,6 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
 
                 break;
             case "showRequestList":
-                  
-                 
                   let config = RequestUiConfiguration()
                   let helpCenter = RequestUi.buildRequestList(with: [config])                  
                              let rootViewController:UIViewController! = UIApplication.shared.keyWindow?.rootViewController
@@ -37,8 +35,6 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
                 break;
 
             case "showHelpCenterActivity":
-
-
                               let config = RequestUiConfiguration()
                               let helpCenter = RequestUi.buildRequestList(with: [config])
                                          let rootViewController:UIViewController! = UIApplication.shared.keyWindow?.rootViewController
@@ -61,8 +57,8 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
             guard let urlString = dictionary["urlString"] as? String,
                   let appId = dictionary["appId"] as? String,
                   let clientId = dictionary["clientId"] as? String,
-                  let nameIdentifier = dictionary["nameIdentifier"] as? String
-                  let name = dictionary["name"] as? String
+                  let nameIdentifier = dictionary["nameIdentifier"] as? String,
+                  let name = dictionary["name"] as? String,
                   let email = dictionary["email"] as? String
 
           
