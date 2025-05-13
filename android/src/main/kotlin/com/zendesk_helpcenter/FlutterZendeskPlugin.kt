@@ -37,10 +37,15 @@ class FlutterZendeskPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         val clientId = call.argument<String>("clientId")!!
         val nameIdentifier = call.argument<String>("nameIdentifier")!!
         val urlString = call.argument<String>("urlString")!!
+        val name = call.argument<String>("name")!!
+        val email = call.argument<String>("email")!!
+
         zendeskFlutterCombination.initialize(
           appId =appId,
           clientId = clientId,
-          nameIdentifier =nameIdentifier, urlString = urlString  )
+          nameIdentifier =nameIdentifier, urlString = urlString,
+          name = name,
+          email = email)
       }
 
       "initializeWithChannel" -> {

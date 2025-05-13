@@ -3,6 +3,7 @@ package com.zendesk_helpcenter
 import android.util.Log
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import zendesk.core.AnonymousIdentity
 import zendesk.core.JwtIdentity
 import zendesk.core.Zendesk
 import zendesk.support.CustomField
@@ -30,10 +31,16 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         appId: String,
         clientId: String,
         nameIdentifier: String,
+        name: String,
+        email: String,
     ) {
 
         Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
-        Zendesk.INSTANCE.setIdentity(JwtIdentity(nameIdentifier))
+        Zendesk.INSTANCE.setIdentity(
+            AnonymousIdentity.Builder()
+            .withNameIdentifier(name)
+            .withEmailIdentifier(email)
+            .build())
         Support.INSTANCE.init(Zendesk.INSTANCE)
 
         plugin.isInitialize = true
@@ -79,10 +86,13 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
             Log.e(tag, "Zendesk or Support SDK is not initialized.")
             return
         }
-
+        Support.INSTANCE.helpCenterLocaleOverride = Locale("en", "IE")
         plugin.activity?.let {
             Log.d(tag, "Launching showHelpCenterActivity")
-            Support.INSTANCE.helpCenterLocaleOverride = Locale("en", "IE")
+
+            val currentLocale = Support.INSTANCE.helpCenterLocaleOverride ?: Locale.getDefault()
+            Log.d("ZendeskLocale", "Help Center Locale: $currentLocale")
+
             HelpCenterActivity.builder().show(it)
         }
     }
