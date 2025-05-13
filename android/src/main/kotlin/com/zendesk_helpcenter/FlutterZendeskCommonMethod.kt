@@ -10,7 +10,7 @@ import zendesk.core.Zendesk
 import zendesk.core.AnonymousIdentity
 import zendesk.messaging.android.DefaultMessagingFactory
 import zendesk.support.request.RequestActivity
-import zendesk.support.request.RequestListActivity
+import zendesk.support.requestlist.RequestListActivity
 
 class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, private val channel: MethodChannel) {
 
