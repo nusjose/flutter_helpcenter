@@ -50,7 +50,9 @@ class ZendeskHelpcenter {
       {required String urlString,
       required String appId,
       required String clientId,
-      required String nameIdentifier}) async {
+      required String nameIdentifier,
+      required String name,
+      required String email }) async {
     if (appId.isEmpty || clientId.isEmpty) {
       debugPrint('ZendeskMessaging - initialize - ids can not be empty');
       return;
@@ -69,6 +71,8 @@ class ZendeskHelpcenter {
         'appId': appId,
         'clientId': clientId,
         'nameIdentifier': nameIdentifier,
+        'name': name,
+        'email': email
       });
     } catch (e) {
       debugPrint('ZendeskMessaging - initialize - Error: $e}');
