@@ -3,17 +3,16 @@ package com.zendesk_helpcenter
 import android.util.Log
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import zendesk.core.AnonymousIdentity
-import zendesk.core.Zendesk
+import zendesk.android.Zendesk
+import zendesk.support.Support
 import zendesk.support.Support
 import zendesk.support.guide.HelpCenterActivity
 import zendesk.support.guide.ViewArticleActivity
 import java.util.Locale
 
 // Zendesk Messaging SDK
-import zendesk.messaging.MessagingActivity
-import zendesk.messaging.Messaging
 import zendesk.messaging.android.DefaultMessagingFactory
+import zendesk.messaging.android.MessagingActivity
 
 //import java.util.Arrays
 //import zendesk.android.Zendesk
@@ -37,28 +36,58 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         channelKey: String
     ) {
 
-        Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
-        Zendesk.INSTANCE.setIdentity(
-            AnonymousIdentity.Builder()
-            .withNameIdentifier(name)
-            .withEmailIdentifier(email)
-            .build())
-        Support.INSTANCE.init(Zendesk.INSTANCE)
-
-        plugin.isInitialize = true
-
-        Messaging.initialize(
+        Zendesk.initialize(
             context = plugin.activity!!.application,
             channelKey = channelKey,
             messagingFactory = DefaultMessagingFactory(),
             successCallback = {
-                Log.d("ZendeskInit", "Zendesk messaging initialized with $channelKey")
+                Log.d("ZendeskInit", "Zendesk initialized successfully")
+
+                plugin.isInitialize = true
+
+//                Zendesk.INSTANCE.setIdentity(
+//                    AnonymousIdentity.Builder()
+//                        .withNameIdentifier(name)
+//                        .withEmailIdentifier(email)
+//                        .build())
+
+                Zendesk.setIdentity(
+                    AnonymousIdentity.Builder()
+                        .withNameIdentifier(name)
+                        .withEmailIdentifier(email)
+                        .build()
+                )
+
+                Support.INSTANCE.init(Zendesk.INSTANCE)
+                channel.invokeMethod(initializeSuccess, null)
             },
-            failureCallback = {
-                Log.e("ZendeskInit", "Zendesk messaging initialization failed with $channelKey")
+            failureCallback = { error ->
+                Log.e("ZendeskInit", "Zendesk initialization failed", error)
             }
         )
-        Log.d("ZendeskInit", "Zendesk initialized with $urlString / $appId")
+
+//        Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
+//        Zendesk.INSTANCE.setIdentity(
+//            AnonymousIdentity.Builder()
+//            .withNameIdentifier(name)
+//            .withEmailIdentifier(email)
+//            .build())
+//        Support.INSTANCE.init(Zendesk.INSTANCE)
+
+//        plugin.isInitialize = true
+
+//        Messaging.initialize(
+//            context = plugin.activity!!.application,
+//            channelKey = channelKey,
+//            messagingFactory = DefaultMessagingFactory(),
+//            successCallback = {
+//                Log.d("ZendeskInit", "Zendesk messaging initialized with $channelKey")
+//            },
+//            failureCallback = {
+//                Log.e("ZendeskInit", "Zendesk messaging initialization failed with $channelKey")
+//            }
+//        )
+//        Log.d("ZendeskInit", "Zendesk initialized with $urlString / $appId")
 
         channel.invokeMethod(initializeSuccess, null)
     }
@@ -97,7 +126,7 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
     }
 
     fun showHelpCenterActivity(call: MethodCall) {
-        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
+        if (!Support.INSTANCE.isInitialized) {
             Log.e(tag, "Zendesk or Support SDK is not initialized.")
             return
         }
@@ -113,21 +142,23 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
     }
 
     fun showArticleActivity(call: MethodCall) {
-        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
-            Log.e(tag, "Zendesk or Support SDK is not initialized.")
-            return
-        }
-
-        plugin.activity?.let {
-            Log.d(tag, "Launching showArticleActivity")
-            ViewArticleActivity.builder().show(it)
-        }
+//        if (!Zendesk.INSTANCE.isInitialized || !Support.INSTANCE.isInitialized) {
+//            Log.e(tag, "Zendesk or Support SDK is not initialized.")
+//            return
+//        }
+//
+//        plugin.activity?.let {
+//            Log.d(tag, "Launching showArticleActivity")
+//            ViewArticleActivity.builder().show(it)
+//        }
     }
 
     fun showChats(call: MethodCall) {
         plugin.activity?.let {
             Log.d(tag, "Launching showChats")
-            MessagingActivity.builder().show(context)        }
+            val intent = MessagingActivity.builder().intent(it)
+            it.startActivity(intent)
+        }
     }
 
 }
