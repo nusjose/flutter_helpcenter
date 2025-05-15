@@ -1,6 +1,7 @@
 package com.zendesk_helpcenter
 
 import android.util.Log
+import com.zendesk.logger.Logger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import zendesk.support.Support
@@ -40,6 +41,7 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
 
         plugin.isInitialize = true
 
+        Logger.setLoggable(true)
         zendesk.android.Zendesk.initialize(
             context = plugin.activity!!.application,
             channelKey = channelKey,
@@ -47,8 +49,8 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
             successCallback = {
                 Log.d("ZendeskInit", "Zendesk messaging initialized with $channelKey")
             },
-            failureCallback = {
-                Log.e("ZendeskInit", "Zendesk messaging initialization failed with $channelKey")
+            failureCallback = { error ->
+                Log.e("ZendeskInit", "Zendesk messaging initialization failed with $channelKey and error $error")
             }
         )
         Log.d("ZendeskInit", "Zendesk initialized with $urlString / $appId")
