@@ -39,15 +39,14 @@ class FlutterZendeskPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         val urlString = call.argument<String>("urlString")!!
         val name = call.argument<String>("name")!!
         val email = call.argument<String>("email")!!
-        val channelKey = call.argument<String>("channelKey")!!
+//        val channelKey = call.argument<String>("channelKey")!!
 
         zendeskFlutterCombination.initialize(
           appId =appId,
           clientId = clientId,
           nameIdentifier =nameIdentifier, urlString = urlString,
           name = name,
-          email = email,
-          channelKey = channelKey)
+          email = email)
       }
 
       "initializeWithChannel" -> {
@@ -63,9 +62,9 @@ class FlutterZendeskPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         zendeskFlutterCombination.showHelpCenterActivity(call)
       }
 
-      "showChats" -> {
-        zendeskFlutterCombination.showChats(call)
-      }
+//      "showChats" -> {
+//        zendeskFlutterCombination.showChats(call)
+//      }
 
       "showSupportChat" -> {
         zendeskFlutterCombination.showSupportChat(call)

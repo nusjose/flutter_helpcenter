@@ -70,7 +70,7 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
 
             Zendesk.instance?.setIdentity(ident)
             Support.initialize(withZendesk: Zendesk.instance)
-            
+
     
         }
 }

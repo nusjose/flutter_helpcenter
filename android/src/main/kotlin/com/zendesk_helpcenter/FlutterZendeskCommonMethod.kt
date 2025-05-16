@@ -9,7 +9,6 @@ import zendesk.support.guide.HelpCenterActivity
 import java.util.Locale
 import zendesk.core.Zendesk
 import zendesk.core.AnonymousIdentity
-import zendesk.messaging.android.DefaultMessagingFactory
 import zendesk.support.request.RequestActivity
 import zendesk.support.requestlist.RequestListActivity
 
@@ -28,7 +27,7 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         nameIdentifier: String,
         name: String,
         email: String,
-        channelKey: String
+//        channelKey: String
     ) {
 
         Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
@@ -42,17 +41,17 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         plugin.isInitialize = true
 
         Logger.setLoggable(true)
-        zendesk.android.Zendesk.initialize(
-            context = plugin.activity!!.application,
-            channelKey = channelKey,
-            messagingFactory = DefaultMessagingFactory(),
-            successCallback = {
-                Log.d("ZendeskInit", "Zendesk messaging initialized with $channelKey")
-            },
-            failureCallback = { error ->
-                Log.e("ZendeskInit", "Zendesk messaging initialization failed with $channelKey and error $error")
-            }
-        )
+//        zendesk.android.Zendesk.initialize(
+//            context = plugin.activity!!.application,
+//            channelKey = channelKey,
+//            messagingFactory = DefaultMessagingFactory(),
+//            successCallback = {
+//                Log.d("ZendeskInit", "Zendesk messaging initialized with $channelKey")
+//            },
+//            failureCallback = { error ->
+//                Log.e("ZendeskInit", "Zendesk messaging initialization failed with $channelKey and error $error")
+//            }
+//        )
         Log.d("ZendeskInit", "Zendesk initialized with $urlString / $appId")
 
         channel.invokeMethod(initializeSuccess, null)
@@ -130,11 +129,11 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         }
     }
 
-    fun showChats(call: MethodCall) {
-        plugin.activity?.let {
-            Log.d(tag, "Launching showChats")
-            zendesk.android.Zendesk.instance.messaging.showMessaging(it)
-        }
-    }
+//    fun showChats(call: MethodCall) {
+//        plugin.activity?.let {
+//            Log.d(tag, "Launching showChats")
+//            zendesk.android.Zendesk.instance.messaging.showMessaging(it)
+//        }
+//    }
 
 }
