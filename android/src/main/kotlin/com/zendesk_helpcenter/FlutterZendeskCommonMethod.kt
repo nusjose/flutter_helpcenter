@@ -31,11 +31,22 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
     ) {
 
         Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
-        Zendesk.INSTANCE.setIdentity(
+//        Zendesk.INSTANCE.setIdentity(
+//            AnonymousIdentity.Builder()
+//            .withNameIdentifier(name)
+//            .withEmailIdentifier(email)
+//            .build())
+        val identity = if (nameIdentifier.trim().isNotEmpty()) {
+            JwtIdentity(nameIdentifier)
+        } else {
             AnonymousIdentity.Builder()
-            .withNameIdentifier(name)
-            .withEmailIdentifier(email)
-            .build())
+                .withNameIdentifier(name)
+                .withEmailIdentifier(email)
+                .build()
+        }
+
+        Zendesk.INSTANCE.setIdentity(identity)
+
         Support.INSTANCE.init(Zendesk.INSTANCE)
 
         plugin.isInitialize = true

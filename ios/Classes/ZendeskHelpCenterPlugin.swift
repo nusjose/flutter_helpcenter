@@ -61,14 +61,20 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
                   let name = dictionary["name"] as? String,
                   let email = dictionary["email"] as? String
 
-          
         else { return }
 
             Zendesk.initialize(appId: appId, clientId: clientId, zendeskUrl: urlString)
-//             let identity = Identity.createJwt(token: nameIdentifier)
-            let ident = Identity.createAnonymous(name: name, email: email)
 
-            Zendesk.instance?.setIdentity(ident)
+            let identity: Identity
+            if !nameIdentifier.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                identity = Identity.createJwt(token: nameIdentifier)
+            } else {
+                identity = Identity.createAnonymous(name: name, email: email)
+            }
+
+            Zendesk.instance?.setIdentity(identity)
+
+//             Zendesk.instance?.setIdentity(ident)
             Support.initialize(withZendesk: Zendesk.instance)
 
     
