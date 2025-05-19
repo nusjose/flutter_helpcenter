@@ -11,6 +11,7 @@ import zendesk.core.Zendesk
 import zendesk.core.AnonymousIdentity
 import zendesk.support.request.RequestActivity
 import zendesk.support.requestlist.RequestListActivity
+import zendesk.core.JwtIdentity
 
 class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, private val channel: MethodChannel) {
 
