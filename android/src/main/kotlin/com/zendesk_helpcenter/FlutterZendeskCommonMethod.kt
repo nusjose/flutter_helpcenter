@@ -12,6 +12,7 @@ import zendesk.core.AnonymousIdentity
 import zendesk.support.request.RequestActivity
 import zendesk.support.requestlist.RequestListActivity
 import zendesk.core.JwtIdentity
+import zendesk.core.Identity
 
 class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, private val channel: MethodChannel) {
 
@@ -30,10 +31,14 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         email: String,
 //        channelKey: String
     ) {
-
+        Logger.setLoggable(true)
         Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
-        val identity = AnonymousIdentity()
+
+        Log.d("ZendeskInit", "init - ${urlString} - ${appId}");
+        val identity: Identity = AnonymousIdentity()
         Zendesk.INSTANCE.setIdentity(identity)
+        Log.d("ZendeskInit", "identity - AnonymousIdentity");
+
 //        Zendesk.INSTANCE.setIdentity(
 //            AnonymousIdentity.Builder()
 //            .withNameIdentifier(name)
@@ -55,7 +60,6 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
 
         plugin.isInitialize = true
 
-        Logger.setLoggable(true)
 //        zendesk.android.Zendesk.initialize(
 //            context = plugin.activity!!.application,
 //            channelKey = channelKey,
@@ -82,7 +86,8 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
 //            .build()
 //        Zendesk.INSTANCE.setIdentity(identity)
 
-        val identity = JwtIdentity(email)
+        Log.d("ZendeskInit", "updateIdentity - ${name} - ${email}");
+        val identity: Identity = JwtIdentity(email)
         Zendesk.INSTANCE.setIdentity(identity)
     }
 
