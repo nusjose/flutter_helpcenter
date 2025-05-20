@@ -37,8 +37,8 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
 //            .withNameIdentifier(name)
 //            .withEmailIdentifier(email)
 //            .build())
-        Log.d("ZendeskInit", "nameIdentifier ${nameIdentifier}")
-        val identity = if (nameIdentifier.trim().isNotEmpty()) {
+//        Log.d("ZendeskInit", "nameIdentifier ${nameIdentifier}")
+        val identity = if (nameIdentifier != "") {
             JwtIdentity(nameIdentifier)
         } else {
             AnonymousIdentity.Builder()
