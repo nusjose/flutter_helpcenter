@@ -24,8 +24,8 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
                 break;
 
             case "updateIdentity":
-                guard let name = dictionary["name"] as? String,
-                              let email = dictionary["email"] as? String
+                guard let name = dic!["name"] as? String,
+                              let email = dic!["email"] as? String
 
                     else { return }
 
