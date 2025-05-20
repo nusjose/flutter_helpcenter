@@ -28,7 +28,7 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
                               let email = dic!["email"] as? String
 
                     else { return }
-
+                print("Zendesk - update identity. Name: \(name), Email: \(email)")
                 let identity = Identity.createAnonymous(name: name, email: email)
                 Zendesk.instance?.setIdentity(identity)
                 break;
@@ -75,6 +75,8 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
         else { return }
 
             Zendesk.initialize(appId: appId, clientId: clientId, zendeskUrl: urlString)
+            CoreLogger.enabled = true
+            CoreLogger.logLevel = .debug
 
 //             let identity: Identity
 //             if nameIdentifier != "" {
