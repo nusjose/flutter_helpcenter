@@ -29,8 +29,10 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
 
                     else { return }
                 print("Zendesk - update identity. Name: \(name), Email: \(email)")
-                let identity = Identity.createAnonymous(name: name, email: email)
-                Zendesk.instance?.setIdentity(identity)
+//                 let identity = Identity.createAnonymous(name: name, email: email)
+//                 Zendesk.instance?.setIdentity(identity)
+                    let identity = Identity.createJwt(token: email)
+                    Zendesk.instance?.setIdentity(identity)
                 break;
 
             case "showRequestList":
