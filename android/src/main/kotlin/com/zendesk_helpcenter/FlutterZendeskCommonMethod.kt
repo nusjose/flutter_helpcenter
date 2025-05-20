@@ -32,7 +32,7 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
     ) {
 
         Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
-        val identity: Identity = AnonymousIdentity()
+        val identity = AnonymousIdentity()
         Zendesk.INSTANCE.setIdentity(identity)
 //        Zendesk.INSTANCE.setIdentity(
 //            AnonymousIdentity.Builder()
