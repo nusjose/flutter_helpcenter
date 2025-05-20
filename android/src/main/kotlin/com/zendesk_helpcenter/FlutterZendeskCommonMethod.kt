@@ -34,7 +34,10 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
 
         Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
 
-        val identity: Identity = AnonymousIdentity()
+//        val identity: Identity = AnonymousIdentity()
+//        Zendesk.INSTANCE.setIdentity(identity)
+
+        val identity: Identity = JwtIdentity(email)
         Zendesk.INSTANCE.setIdentity(identity)
 
 //        Zendesk.INSTANCE.setIdentity(
