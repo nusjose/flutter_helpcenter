@@ -29,10 +29,11 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         nameIdentifier: String,
         name: String,
         email: String,
-//        channelKey: String
     ) {
-        Logger.setLoggable(true)
+        Log.d("ZendeskInit", "start initialize")
+
         Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
+        Log.d("ZendeskInit", "Set identity with name: $name and email: $email")
 
         Log.d("ZendeskInit", "init - ${urlString} - ${appId}");
 //        val identity: Identity = JwtIdentity(nameIdentifier)
@@ -43,33 +44,12 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
             .withNameIdentifier(name)
             .withEmailIdentifier(email)
             .build())
-//        Log.d("ZendeskInit", "nameIdentifier ${nameIdentifier}")
-//        val identity = if (nameIdentifier != "") {
-//            JwtIdentity(nameIdentifier)
-//        } else {
-//            AnonymousIdentity.Builder()
-//                .withNameIdentifier(name)
-//                .withEmailIdentifier(email)
-//                .build()
-//        }
-//        Log.d("ZendeskInit", "identity ${identity}")
-//        Zendesk.INSTANCE.setIdentity(identity)
 
         Support.INSTANCE.init(Zendesk.INSTANCE)
 
         plugin.isInitialize = true
+        Logger.setLoggable(true)
 
-//        zendesk.android.Zendesk.initialize(
-//            context = plugin.activity!!.application,
-//            channelKey = channelKey,
-//            messagingFactory = DefaultMessagingFactory(),
-//            successCallback = {
-//                Log.d("ZendeskInit", "Zendesk messaging initialized with $channelKey")
-//            },
-//            failureCallback = { error ->
-//                Log.e("ZendeskInit", "Zendesk messaging initialization failed with $channelKey and error $error")
-//            }
-//        )
         Log.d("ZendeskInit", "Zendesk initialized with $urlString / $appId")
 
         channel.invokeMethod(initializeSuccess, null)
