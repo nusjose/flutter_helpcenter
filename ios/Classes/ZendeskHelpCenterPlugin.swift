@@ -22,6 +22,17 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
                 self.initSupport(dictionary: dic!)
 
                 break;
+
+            case "updateIdentity":
+                guard let name = dictionary["name"] as? String,
+                              let email = dictionary["email"] as? String
+
+                    else { return }
+
+                let identity = Identity.createAnonymous(name: name, email: email)
+                Zendesk.instance?.setIdentity(identity)
+                break;
+
             case "showRequestList":
                   let config = RequestUiConfiguration()
                   let helpCenter = RequestUi.buildRequestList(with: [config])                  
@@ -65,14 +76,16 @@ public class ZendeskHelpCenterPluginClass: NSObject, FlutterPlugin {
 
             Zendesk.initialize(appId: appId, clientId: clientId, zendeskUrl: urlString)
 
-            let identity: Identity
-            if nameIdentifier != "" {
-                identity = Identity.createJwt(token: nameIdentifier)
-            } else {
-                identity = Identity.createAnonymous(name: name, email: email)
-            }
+//             let identity: Identity
+//             if nameIdentifier != "" {
+//                 identity = Identity.createJwt(token: nameIdentifier)
+//             } else {
+//                 identity = Identity.createAnonymous(name: name, email: email)
+//             }
+//
+//             Zendesk.instance?.setIdentity(identity)
 
-            Zendesk.instance?.setIdentity(identity)
+               Zendesk.instance?.setIdentity(Identity.createAnonymous())
 
 //             Zendesk.instance?.setIdentity(Identity.createAnonymous(name: name, email: email))
             Support.initialize(withZendesk: Zendesk.instance)

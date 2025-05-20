@@ -49,6 +49,12 @@ class FlutterZendeskPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
           email = email)
       }
 
+      "updateIdentity" -> {
+        val name = call.argument<String>("name")!!
+        val email = call.argument<String>("email")!!
+        zendeskFlutterCombination.updateIdentity(name, email)
+      }
+
       "initializeWithChannel" -> {
         val channelKey = call.argument<String>("channelKey")!!
         zendeskFlutterCombination.initializeWithChannel(channelKey)

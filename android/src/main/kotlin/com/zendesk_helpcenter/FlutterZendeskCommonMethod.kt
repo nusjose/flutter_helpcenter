@@ -32,22 +32,24 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
     ) {
 
         Zendesk.INSTANCE.init(plugin.activity!!.application, urlString, appId, clientId)
+        val identity: Identity = AnonymousIdentity()
+        Zendesk.INSTANCE.setIdentity(identity)
 //        Zendesk.INSTANCE.setIdentity(
 //            AnonymousIdentity.Builder()
 //            .withNameIdentifier(name)
 //            .withEmailIdentifier(email)
 //            .build())
 //        Log.d("ZendeskInit", "nameIdentifier ${nameIdentifier}")
-        val identity = if (nameIdentifier != "") {
-            JwtIdentity(nameIdentifier)
-        } else {
-            AnonymousIdentity.Builder()
-                .withNameIdentifier(name)
-                .withEmailIdentifier(email)
-                .build()
-        }
-        Log.d("ZendeskInit", "identity ${identity}")
-        Zendesk.INSTANCE.setIdentity(identity)
+//        val identity = if (nameIdentifier != "") {
+//            JwtIdentity(nameIdentifier)
+//        } else {
+//            AnonymousIdentity.Builder()
+//                .withNameIdentifier(name)
+//                .withEmailIdentifier(email)
+//                .build()
+//        }
+//        Log.d("ZendeskInit", "identity ${identity}")
+//        Zendesk.INSTANCE.setIdentity(identity)
 
         Support.INSTANCE.init(Zendesk.INSTANCE)
 
@@ -68,6 +70,17 @@ class FlutterZendeskCommonMethod (private val plugin: FlutterZendeskPlugin, priv
         Log.d("ZendeskInit", "Zendesk initialized with $urlString / $appId")
 
         channel.invokeMethod(initializeSuccess, null)
+    }
+
+    fun updateIdentity(
+        name: String,
+        email: String,
+    ) {
+        val identity = AnonymousIdentity.Builder()
+            .withNameIdentifier(name)
+            .withEmailIdentifier(email)
+            .build()
+        Zendesk.INSTANCE.setIdentity(identity)
     }
 
 

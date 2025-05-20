@@ -80,6 +80,20 @@ class ZendeskHelpcenter {
     }
   }
 
+  static Future<void> updateIdentity({
+    required String name,
+    required String email,
+  }) async {
+    try {
+      await _channel.invokeMethod('updateIdentity',{
+        "name": name,
+        "email": email
+      });
+    } catch (e) {
+      debugPrint('ZendeskMessaging - updateIdentity - Error: $e}');
+    }
+  }
+
   static Future<void> initializeWithChannel({
     required String channelKey,
 }) async {
